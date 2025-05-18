@@ -1,0 +1,2377 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Product Pass | Rudholm Group</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #2563eb;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #94a3b8;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .logo i {
+                color: var(--secondary);
+            }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+            nav a:hover {
+                color: var(--secondary);
+            }
+
+        .hero {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #1e40af;
+            }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+            .btn-outline:hover {
+                background-color: rgba(255,255,255,0.1);
+            }
+
+        .product-section {
+            padding: 60px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+            .section-header h2 {
+                font-size: 2rem;
+                color: var(--primary);
+                margin-bottom: 15px;
+            }
+
+            .section-header p {
+                color: var(--gray);
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            }
+
+        .product-img {
+            height: 300px;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+            .product-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .product-info {
+            margin-bottom: 20px;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
+            color: var(--gray);
+        }
+
+            .product-meta div {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .badge-blue {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-green {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-yellow {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .product-detail-page {
+            display: none;
+            padding: 40px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: white;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+            .main-content.hidden {
+                opacity: 0;
+                visibility: hidden;
+                height: 0;
+                overflow: hidden;
+            }
+
+        .product-detail-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .product-info-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-image-column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-detail-image {
+            width: 100%;
+            height: 500px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .product-detail-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+            .back-btn:hover {
+                text-decoration: underline;
+            }
+
+        .product-specs {
+            margin-top: 30px;
+        }
+
+        .spec-item {
+            margin-bottom: 15px;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .material-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .material-name {
+            font-weight: 600;
+        }
+
+        .material-composition {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* About Section Styles */
+        .about-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+            .about-content h3 {
+                margin-top: 30px;
+                margin-bottom: 15px;
+                color: var(--primary);
+            }
+
+            .about-content ul {
+                margin-left: 20px;
+                margin-bottom: 20px;
+            }
+
+            .about-content li {
+                margin-bottom: 10px;
+            }
+
+        .about-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            display: block;
+            border-radius: var(--border-radius);
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .contact-container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-card {
+            background-color: #f8fafc;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+            .contact-card h3 {
+                margin-bottom: 20px;
+                color: var(--primary);
+            }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 500;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+            .form-control:focus {
+                outline: none;
+                border-color: var(--secondary);
+            }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .submit-btn:hover {
+                background-color: #1e40af;
+            }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+            .footer-col h3::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 2px;
+                background-color: var(--secondary);
+            }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+            .footer-col ul li {
+                margin-bottom: 10px;
+            }
+
+        .footer-col a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+            .footer-col a:hover {
+                color: white;
+            }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 40px 0;
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: 0 auto;
+            }
+
+            .product-detail-container {
+                flex-direction: column;
+            }
+
+            .product-detail-image {
+                height: 400px;
+            }
+
+            .about-section {
+                padding: 50px 0;
+            }
+
+            .contact-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-tag"></i>
+                        <span>Rudholm Group</span>
+                    </div>
+                    <nav>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#products">Products</a></li>
+                            <li><a href="#about">About DPP</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Digital Product Pass Platform</h1>
+                    <p>Transparent supply chains and product lifecycle information to meet EU 2027 regulations and empower consumers to make informed decisions.</p>
+                    <a href="#products" class="btn">View Products</a>
+                    <a href="#about" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Products</h2>
+                    <p>Scan the QR code on your product label to access detailed information about origin, materials, and environmental impact.</p>
+                </div>
+
+                <div class="product-grid">
+                    <div class="product-card" onclick="showProductDetail('jacket1')">
+                        <div class="product-img">
+                            <img src="https://www.8848altitude.com/storage/CE87D61F46F50E2545C298D918BC722CE3953352BB43A1768F62918F9F1AFE61/93f2a360c63f4724b2a31ef2c644bb71/jpg/media/4ef7073a578944f1bf279c3768ddcdf1/246008_6.jpg" alt="Audrey W SKi Jacket">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Audrey W Ski Jacket</h3>
+                            <div class="product-info">
+                                <span class="badge badge-blue">Performance</span>
+                                <span class="badge badge-green">Water-resistant</span>
+                                <span class="badge badge-yellow">Medium weight</span>
+                            </div>
+                            <div class="product-meta">
+                                <div>
+                                    <i class="fas fa-globe"></i>
+                                    <span>Origin: China</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-leaf"></i>
+                                    <span>CO₂: 0.13 kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="showProductDetail('jacket2')">
+                        <div class="product-img">
+                            <img src="https://www.8848altitude.com/storage/FFC1141D68F9F456F9B75B8706C3D5644159A710BFF96299AEF39F7EB8ABBC16/3a06ef5569bb4b3da9606f4beb399b4c/jpg/media/1c4de389662b48fb9dd3dd2025ebb3d4/5139S9_7.jpg" alt="Saga Jr Ski Jacket">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Saga JR Ski Jacket</h3>
+                            <div class="product-info">
+                                <span class="badge badge-blue">Performance</span>
+                                <span class="badge badge-green">Water-resistant</span>
+                                <span class="badge badge-yellow">Medium weight</span>
+                            </div>
+                            <div class="product-meta">
+                                <div>
+                                    <i class="fas fa-globe"></i>
+                                    <span>Origin: Vietnam</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-leaf"></i>
+                                    <span>CO₂: 0.17 kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="section-header">
+                    <h2>About Digital Product Pass</h2>
+                </div>
+
+                <div class="about-content">
+                    <p>Digital Product Pass (DPP) is an innovative solution that aims to streamline the collection of information about the origin and manufacturing of clothing. By creating transparency in the fashion industry, the Product Passport enables consumers to understand the path of clothing from production to store. This increases awareness of sustainability and ethical issues, which encourages more informed purchasing decisions. The goal is to empower consumers and promote more responsible consumption in fashion.</p>
+
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sustainable production" class="about-image">
+
+                    <h3>Our Mission</h3>
+                    <p>To revolutionize product transparency in the fashion industry by providing comprehensive digital product passports that meet EU 2027 sustainability regulations while empowering consumers with the information they need to make responsible choices.</p>
+
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Full material disclosure:</strong> Detailed information about all components and materials used</li>
+                        <li><strong>Supply chain transparency:</strong> Complete visibility of the production journey</li>
+                        <li><strong>Environmental impact data:</strong> Carbon footprint, water usage, and energy consumption</li>
+                        <li><strong>Certifications:</strong> Official sustainability certifications and standards</li>
+                        <li><strong>Care & recycling:</strong> Instructions for proper care and end-of-life handling</li>
+                    </ul>
+
+                    <h3>Compliance with EU Regulations</h3>
+                    <p>Our Digital Product Passport solution is designed to help businesses comply with upcoming EU regulations requiring detailed product information for sustainable goods. We stay ahead of regulatory changes to ensure our platform always meets the latest requirements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Contact Us</h2>
+                    <p>Get in touch with our team for more information about our Digital Product Pass solutions.</p>
+                </div>
+
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <h3>Contact Information</h3>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4>Address</h4>
+                                    <p>123 Sustainability Street<br>Stockholm, Sweden</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4>Phone</h4>
+                                    <p>+46 123 456 789</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@rudholmgroup.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4>Business Hours</h4>
+                                    <p>Monday - Friday: 9:00 - 17:00<br>Saturday - Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <h3>Follow Us</h3>
+                            <div class="social-links">
+                                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-col">
+                        <h3>Rudholm Group</h3>
+                        <p>Transparent supply chains and sustainable product information.</p>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Links</h3>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#products">Products</a></li>
+                            <li><a href="#about">About DPP</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contact</h3>
+                        <ul>
+                            <li>info@rudholmgroup.com</li>
+                            <li>+46 123 456 789</li>
+                            <li>Stockholm, Sweden</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 Rudholm Group. All rights reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AUDREY W SKI JACKET | Product Detail</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                color: #212121;
+                line-height: 1.5;
+                background-color: #fff;
+            }
+
+            .product-detail-page {
+                padding: 40px 0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            .back-btn {
+                display: inline-flex;
+                align-items: center;
+                color: #212121;
+                text-decoration: none;
+                margin-bottom: 40px;
+                font-weight: 500;
+                transition: color 0.2s ease;
+            }
+
+                .back-btn:hover {
+                    color: #666;
+                }
+
+                .back-btn i {
+                    margin-right: 10px;
+                }
+
+            .product-detail-container {
+                display: flex;
+                gap: 60px;
+                align-items: flex-start;
+            }
+
+            .product-info-column {
+                flex: 1;
+                max-width: 500px;
+            }
+
+            .product-image-column {
+                flex: 1;
+            }
+
+            .product-title {
+                font-weight: 300;
+                font-size: 36px;
+                letter-spacing: 0.5px;
+                margin-bottom: 20px;
+                line-height: 1.2;
+            }
+
+            .product-description {
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 1.6;
+                margin-bottom: 40px;
+                color: #444;
+            }
+
+            .product-attribute h3 {
+                font-weight: 500;
+                font-size: 14px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            .product-attribute {
+                margin-bottom: 30px;
+            }
+
+            .color-options {
+                display: flex;
+                gap: 12px;
+            }
+
+            .color-option {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+                box-shadow: 0 0 0 1px #ddd;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+                .color-option:hover {
+                    transform: scale(1.1);
+                }
+
+                .color-option.selected {
+                    box-shadow: 0 0 0 2px #212121;
+                }
+
+            .size-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .size-option {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+                .size-option:hover {
+                    border-color: #999;
+                }
+
+                .size-option.selected {
+                    background-color: #212121;
+                    color: white;
+                    border-color: #212121;
+                }
+
+            .product-price {
+                font-size: 28px;
+                font-weight: 400;
+            }
+
+            .store-btn {
+                display: inline-flex;
+                align-items: center;
+                padding: 16px 32px;
+                background-color: #212121;
+                color: white;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                border: none;
+                font-size: 16px;
+            }
+
+                .store-btn:hover {
+                    background-color: #000;
+                    transform: translateY(-2px);
+                }
+
+                .store-btn i {
+                    margin-right: 10px;
+                }
+
+            .product-detail-image img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+
+            @media (max-width: 768px) {
+                .product-detail-container {
+                    flex-direction: column-reverse;
+                }
+
+                .product-info-column,
+                .product-image-column {
+                    flex: none;
+                    width: 100%;
+                    max-width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+
+
+
+        <!-- Jacket 1 Detail Page -->
+        <section class="product-detail-page" id="jacket1-detail">
+            <div class="container">
+                <a href="#" class="back-btn" onclick="hideProductDetail()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Tillbaka till produkter</span>
+                </a>
+
+                <div class="product-detail-container">
+                    <div class="product-info-column">
+                        <h2 class="product-title">AUDREY W SKI JACKET</h2>
+                        <p class="product-description">
+                            En ikonisk skidjacka med feminin siluett, matt finish och sportig flair. Tillverkad av durAtec® Supreme med 4-vägsstretch för maximal komfort.
+                        </p>
+
+                        <div class="product-attribute">
+                            <h3>Colors:</h3>
+                            <div class="color-options">
+                                <div class="color-option" data-color="Black" data-image="https://www.8848altitude.com/storage/CE87D61F46F50E2545C298D918BC722CE3953352BB43A1768F62918F9F1AFE61/93f2a360c63f4724b2a31ef2c644bb71/jpg/media/4ef7073a578944f1bf279c3768ddcdf1/246008_6.jpg" style="background-color: #000000;" title="Black"></div>
+                                <div class="color-option" data-color="Beige" data-image="https://www.8848altitude.com/storage/D73FDA79C5875FD4999040F9DC2B19738CBDCB0B53B3F85C300414AA7A6F391C/5006ca230ce64b5092f176c085370c60/jpg/media/9bd171320115456399a62f83415c7e5f/246084_6.jpg" style="background-color: #e4d5b7; " title="Beige"></div>
+                                <div class="color-option" data-color="Icelandic blue" data-image="https://www.8848altitude.com/storage/B470B2FF3DB50B31AD0649575ECF7BD64D10DA39591C2B1FED8B4D447BE595A6/4aca79711b694d379c93562b3433a22f/jpg/media/48597ec4f99c4946aeb5bf29a2f6d192/2460D5_6.jpg" style="background-color: #CBD6DC;" title="Icelandic blue"></div>
+                                <div class="color-option selected" data-color="Fog" data-image="https://www.8848altitude.com/storage/4AF3304642F359140842AF6DBD145858A5076BF3764A0FD79D82921C616C3E10/1cab5e90b4ef4d9c87b93bb87a43cae0/jpg/media/d583a06589de44388974daa9aa345290/2460E4_1.jpg" style="background-color: #9B9293;" title="Fog"></div>
+                                <div class="color-option" data-color="Hortensia Blue" data-image="https://www.8848altitude.com/storage/18B868A8F841D8C5A124EE8921D6B1903FB8DE6B7AF289D7FEDC3A8574742706/f1973a907eea44308c34f574b6ed243a/jpg/media/8c1c767e9ea141c08edfdb91b2d9254e/246028_1.jpg" style="background-color: #98B7CB;" title="Hortensia Blue"></div>
+                                <div class="color-option" data-color="Powder Pink" data-image="https://www.8848altitude.com/storage/AFD97BE685E5D09EB6B53387BA040A5052D08B5E41AB444B1D4B141B3B95ECAE/66fbf83c5ce3408dbd31ab41a20a4daa/jpg/media/0877e65aa0f24b6a8ff99d3e41cee7e4/2460C9_1.jpg" style="background-color: #ead7db;" title="Powder Pink"></div>
+                            </div>
+                        </div>
+
+                        <div class="product-attribute">
+                            <h3>Sizes:</h3>
+                            <div class="size-options">
+                                <div class="size-option">34</div>
+                                <div class="size-option">36</div>
+                                <div class="size-option selected">38</div>
+                                <div class="size-option">40</div>
+                                <div class="size-option">42</div>
+                                <div class="size-option">44</div>
+                                <div class="size-option">46</div>
+                            </div>
+                        </div>
+
+                        <div class="product-attribute">
+                            <h3>Prize</h3>
+                            <p class="product-price">4 000 SEK</p>
+                        </div>
+
+                        <a href="https://www.8848altitude.com/sv-SE/dam/audrey-w-ski-jacket-black-246008034" class="store-btn" id="store-link">
+                            <i class="fas fa-store"></i> Show in Store
+                        </a>
+                    </div>
+
+
+
+                    <div class="product-image-column">
+                        <div class="product-detail-image">
+                            <img id="product-image" src="https://www.8848altitude.com/storage/4AF3304642F359140842AF6DBD145858A5076BF3764A0FD79D82921C616C3E10/1cab5e90b4ef4d9c87b93bb87a43cae0/jpg/media/d583a06589de44388974daa9aa345290/2460E4_1.jpg"
+                                 alt="Audrey W Ski Jacket - Fog">
+                        </div>
+                    </div>
+
+
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>AUDREY W SKI JACKET - Information</title>
+                        <style>
+                            /* Base styles */
+                            * {
+                                margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                            }
+
+                            .container {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                                padding: 2rem;
+                            }
+
+                            h2 {
+                                font-size: 2.25rem; /* Increased from 1.5rem */
+                                font-weight: bold;
+                                margin-bottom: 2rem; /* Increased from 1.5rem */
+                                text-align: center;
+                            }
+
+                            /* Tab navigation */
+                            .tabs {
+                                display: flex;
+                                margin-bottom: 2rem; /* Increased from 1.5rem */
+                                background-color: #f3f4f6;
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                                padding: 0.5rem; /* Increased from 0.25rem */
+                            }
+
+                            .tab-button {
+                                flex: 1;
+                                padding: 0.75rem 1.5rem; /* Increased from 0.5rem 1rem */
+                                border-radius: 0.5rem; /* Increased from 0.375rem */
+                                border: none;
+                                background-color: transparent;
+                                cursor: pointer;
+                                transition: background-color 0.3s, color 0.3s;
+                                font-size: 1.1rem; /* Added larger font size */
+                                font-weight: 500; /* Added for better visibility */
+                            }
+
+                                .tab-button.active {
+                                    background-color: #3b82f6;
+                                    color: white;
+                                    font-weight: 600; /* Increased from default */
+                                }
+
+                            /* Content area */
+                            .content {
+                                background-color: #f9fafb;
+                                padding: 2rem; /* Increased from 1.5rem */
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                            }
+
+                            .tab-content {
+                                display: none;
+                                flex-direction: column;
+                                align-items: center;
+                            }
+
+                                .tab-content.active {
+                                    display: flex;
+                                }
+
+                            h3 {
+                                font-size: 1.75rem; /* Increased from 1.25rem */
+                                font-weight: 600;
+                                margin-bottom: 1.5rem; /* Increased from 1rem */
+                            }
+
+                            /* Environmental impact tab */
+                            .environmental-stats {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: space-around;
+                                width: 100%;
+                                margin-bottom: 2rem; /* Added for spacing */
+                            }
+
+                            @media (min-width: 768px) {
+                                .environmental-stats {
+                                    flex-direction: row;
+                                }
+                            }
+
+                            .stat-box {
+                                text-align: center;
+                                margin-bottom: 2rem; /* Increased from 1.5rem */
+                            }
+
+                            .stat-value {
+                                font-size: 4.5rem; /* Increased from 3.75rem */
+                                font-weight: bold;
+                                color: #3b82f6;
+                                margin-bottom: 0.75rem; /* Increased from 0.5rem */
+                            }
+
+                            .stat-label {
+                                color: #4b5563;
+                                font-size: 1.25rem; /* Added larger font size */
+                            }
+
+                            .stat-sublabel {
+                                font-size: 1.1rem; /* Increased from 0.875rem */
+                                color: #6b7280;
+                                margin-top: 0.75rem; /* Increased from 0.5rem */
+                            }
+
+                            .chart-container {
+                                height: 32rem; /* Increased from 16rem */
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px) {
+                                .chart-container {
+                                    width: 60%; /* Increased from 50% */
+                                }
+                            }
+
+                            .info-box {
+                                margin-top: 2rem; /* Increased from 1.5rem */
+                                font-size: 1.1rem; /* Increased from 0.875rem */
+                                color: #4b5563;
+                                background-color: #eff6ff;
+                                padding: 1.5rem; /* Increased from 1rem */
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                                width: 100%;
+                                line-height: 1.5; /* Added for readability */
+                            }
+
+                            .info-box-green {
+                                background-color: #f0fdf4;
+                            }
+
+                            .info-box-yellow {
+                                background-color: #fefce8;
+                            }
+
+                            .info-box-purple {
+                                background-color: #faf5ff;
+                            }
+
+                            .info-title {
+                                font-weight: 600;
+                                margin-bottom: 0.75rem; /* Increased from 0.5rem */
+                                font-size: 1.25rem; /* Added larger font size */
+                            }
+
+                            ul {
+                                list-style-position: inside;
+                                padding-left: 1.5rem; /* Increased from 1.25rem */
+                            }
+
+                                ul li {
+                                    margin-bottom: 0.5rem; /* Added for better spacing */
+                                    line-height: 1.5; /* Added for readability */
+                                }
+
+                                ul ul {
+                                    margin-left: 1.5rem; /* Increased from 1rem */
+                                    margin-top: 0.5rem; /* Increased from 0.25rem */
+                                }
+
+                            /* Transport tab */
+                            .transport-legend {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 1.5rem; /* Increased from 1rem */
+                                margin-bottom: 2rem; /* Increased from 1.5rem */
+                            }
+
+                            .legend-item {
+                                display: flex;
+                                align-items: center;
+                                font-size: 1.1rem; /* Added larger font size */
+                            }
+
+                            .legend-icon {
+                                margin-right: 0.75rem; /* Increased from 0.5rem */
+                                font-size: 1.5rem; /* Added larger icon size */
+                            }
+
+                            .truck-icon {
+                                color: #3b82f6;
+                            }
+
+                            .ship-icon {
+                                color: #10b981;
+                            }
+
+                            .pin-icon {
+                                color: #ef4444;
+                            }
+
+                            /* Certifications tab */
+                            .cert-grid {
+                                display: grid;
+                                grid-template-columns: 1fr;
+                                gap: 1.5rem; /* Increased from 1rem */
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px) {
+                                .cert-grid {
+                                    grid-template-columns: 1fr 1fr;
+                                }
+                            }
+
+                            .cert-card {
+                                background-color: white;
+                                padding: 1.5rem; /* Increased from 1rem */
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                                border: 1px solid #e5e7eb;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Enhanced shadow */
+                            }
+
+                            .cert-title {
+                                font-weight: bold;
+                                color: #2563eb;
+                                font-size: 1.3rem; /* Added larger font size */
+                            }
+
+                            .cert-desc {
+                                color: #4b5563;
+                                margin-top: 0.75rem; /* Increased from 0.5rem */
+                                font-size: 1.1rem; /* Added larger font size */
+                            }
+
+                            /* Material tab */
+                            .material-charts {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: space-around;
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px) {
+                                .material-charts {
+                                    flex-direction: row;
+                                }
+                            }
+
+                            .pie-container {
+                                height: 22rem; /* Increased from 16rem */
+                                width: 100%;
+                                margin-bottom: 2rem; /* Increased from 1.5rem */
+                                position: relative;
+                            }
+
+                            @media (min-width: 768px) {
+                                .pie-container {
+                                    width: 45%; /* Reduced slightly from 50% for more spacing */
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            .chart-title {
+                                text-align: center;
+                                font-weight: 500;
+                                font-size: 1.3rem; /* Added larger font size */
+                                margin-top: 1rem; /* Added for spacing */
+                            }
+
+                            .pie-chart {
+                                width: 100%;
+                                height: 100%;
+                            }
+
+                            .legend {
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: center;
+                                gap: 0.75rem; /* Increased from 0.5rem */
+                                margin-top: 0.75rem; /* Increased from 0.5rem */
+                            }
+
+                            .legend-item-material {
+                                display: flex;
+                                align-items: center;
+                                font-size: 1rem; /* Increased from 0.75rem */
+                            }
+
+                            .color-box {
+                                width: 16px; /* Increased from 12px */
+                                height: 16px; /* Increased from 12px */
+                                margin-right: 8px; /* Increased from 4px */
+                                border-radius: 3px; /* Increased from 2px */
+                            }
+
+                            /* Care instructions tab */
+                            .care-instructions {
+                                display: flex;
+                                justify-content: center;
+                                gap: 3rem; /* Increased from 2rem */
+                                margin-bottom: 3rem; /* Increased from 2rem */
+                                flex-wrap: wrap; /* Added for mobile responsiveness */
+                            }
+
+                            .care-item {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                margin: 0.5rem; /* Added for spacing on mobile */
+                            }
+
+                            .care-icon {
+                                font-size: 3rem; /* Increased from 2.25rem */
+                                margin-bottom: 0.75rem; /* Increased from 0.5rem */
+                            }
+
+                            .care-text {
+                                font-size: 1.1rem; /* Increased from 0.875rem */
+                                color: #4b5563;
+                                text-align: center;
+                            }
+
+                            .care-note {
+                                background-color: #f3f4f6;
+                                padding: 2rem; /* Increased from 1.5rem */
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                                text-align: center;
+                                width: 100%;
+                            }
+
+                            @media (min-width: 768px) {
+                                .care-note {
+                                    width: 75%; /* Increased from 66.666667% */
+                                }
+                            }
+
+                            .care-note p {
+                                color: #4b5563;
+                                font-style: italic;
+                                font-size: 1.1rem; /* Added larger font size */
+                                line-height: 1.5; /* Added for readability */
+                            }
+
+                            .care-tip {
+                                margin-top: 1.5rem; /* Increased from 1rem */
+                                padding: 1rem 1.5rem; /* Increased from 0.75rem 1rem */
+                                background-color: #fef3c7;
+                                border-radius: 0.75rem; /* Increased from 0.5rem */
+                                display: inline-block;
+                            }
+
+                            .care-tip-title {
+                                font-size: 1.1rem; /* Increased from 0.875rem */
+                                font-weight: 500;
+                            }
+
+                            .care-tip-text {
+                                font-size: 1rem; /* Increased from 0.75rem */
+                                color: #4b5563;
+                                margin-top: 0.5rem; /* Increased from 0.25rem */
+                                line-height: 1.5; /* Added for readability */
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <h2>AUDREY W SKI JACKET - Information</h2>
+
+                            <div class="tabs">
+                                <button class="tab-button active" data-tab="miljopåverkan">Miljöpåverkan</button>
+                                <button class="tab-button" data-tab="transport">Transport</button>
+                                <button class="tab-button" data-tab="certifieringar">Certifieringar</button>
+                                <button class="tab-button" data-tab="material">Material</button>
+                                <button class="tab-button" data-tab="tvätt">Tvätt</button>
+                            </div>
+
+                            <div class="content">
+                                <!-- Environmental Impact Tab -->
+                                <div id="miljopåverkan" class="tab-content active">
+                                    <h3>Miljöpåverkan</h3>
+
+                                    <div class="environmental-stats">
+                                        <div class="stat-box">
+                                            <div class="stat-value">0.13</div>
+                                            <div class="stat-label">kg CO2 per plagg</div>
+                                            <div class="stat-sublabel">Transport med container</div>
+                                        </div>
+
+
+
+                                        <div class="chart-container">
+                                            <canvas id="environmentalChart"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <p class="info-title">Miljöpåverkans faktorer:</p>
+                                        <ul>
+                                            <li>Transport genom FCL 40'HC container med andra varor</li>
+                                            <li>Långa transportsträckor från flera olika leverantörer</li>
+                                            <li>Produktion i primärt Kina (62%) och Korea (17%)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Transport Tab -->
+                                <div id="transport" class="tab-content">
+                                    <h3>Transportsträckor</h3>
+
+                                    <div class="transport-legend">
+                                        <div class="legend-item">
+                                            <span class="legend-icon truck-icon">🚚</span>
+                                            <span>Lastbil</span>
+                                            <p> 🔵</p>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-icon ship-icon">🚢</span>
+                                            <span>Båt</span>
+                                            <p> 🟢</p>
+                                        </div>
+                                        <div class="legend-item">
+                                            <span class="legend-icon pin-icon">📍</span>
+                                            <span>Produktion</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="chart-container" style="width: 105%;">
+                                        <canvas id="transportChart"></canvas>
+                                    </div>
+
+                                    <br />
+                                    <div style="margin: 30px 0;">
+                                        <h2 style="text-align: center; margin-bottom: 15px; color: #333;">
+                                            Visualisering av transportväg: Kina Suzhou → Sverige Borås
+                                        </h2>
+                                    </div>
+                                    <!-- Lägg till videospelaren här -->
+
+
+                                    <style>
+                                        .youtube-ultimate-clean {
+                                            position: relative;
+                                            width: 100%;
+                                            padding-bottom: 56.25%;
+                                            overflow: hidden;
+                                            background: #000;
+                                            image-rendering: -webkit-optimize-contrast;
+                                            image-rendering: crisp-edges;
+                                        }
+
+                                            .youtube-ultimate-clean iframe {
+                                                position: absolute;
+                                                top: -60px;
+                                                left: 0;
+                                                width: 100%;
+                                                height: calc(100% + 120px);
+                                                border: none;
+                                                pointer-events: none;
+                                                transform: translateZ(0);
+                                                backface-visibility: hidden;
+                                            }
+
+                                            .youtube-ultimate-clean::after {
+                                                content: "";
+                                                position: absolute;
+                                                bottom: 0;
+                                                left: 0;
+                                                width: 100%;
+                                                height: 60px;
+                                                background: #000;
+                                                z-index: 2;
+                                            }
+                                    </style>
+
+                                    <div class="youtube-ultimate-clean">
+                                        <iframe src="https://www.youtube-nocookie.com/embed/EXCF1wFRD2Y?autoplay=1&mute=1&loop=1&playlist=EXCF1wFRD2Y&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1&fs=0&iv_load_policy=3&playsinline=1&cc_load_policy=0&widget_referrer=0&enablejsapi=0&origin=YOURDOMAIN.COM&vq=hd1080&html5=1&version=3"
+                                                allow="autoplay; fullscreen; accelerometer; gyroscope"
+                                                sandbox="allow-same-origin allow-scripts allow-presentation"
+                                                loading="eager"
+                                                referrerpolicy="strict-origin">
+                                        </iframe>
+                                    </div>
+
+                                    <div class="info-box info-box-green">
+
+
+                                        <style>
+                                            body {
+                                                font-family: Arial, sans-serif;
+                                                line-height: 1.6;
+                                                margin: 0 auto;
+                                                padding: 20px;
+                                                color: #333;
+                                            }
+
+
+
+                                            .transport-step {
+                                                background: #f9f9f9;
+                                                border-left: 4px solid #3498db;
+                                                padding: 10px 15px;
+                                                margin: 10px 0;
+                                                border-radius: 0 4px 4px 0;
+                                            }
+
+                                            .total {
+                                                background: #e8f4fc;
+                                                padding: 15px;
+                                                border-radius: 4px;
+                                                font-weight: bold;
+                                                margin-top: 20px;
+                                            }
+
+                                            .emoji {
+                                                font-size: 1.2em;
+                                                margin-right: 10px;
+                                            }
+
+                                            hr {
+                                                border: 0;
+                                                height: 1px;
+                                                background: #ddd;
+                                                margin: 20px 0;
+                                            }
+                                        </style>
+                                        </head>
+                                        <body>
+                                            <h1>📦 Transportväg för Audrey Ski Jacket (Art No: JACKET 1 2460)</h1>
+
+                                            <p><strong>Steg-för-steg med avstånd:</strong></p>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🏭</span> Produktion i Suzhou, Kina: ~0 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Yingkou: ~1,658 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dashiqiao (sammansättning): ~50 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dalian (hamn): ~250 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Göteborg, Sverige: ~18,214 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Borås: ~70 km
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="total">
+                                                <span class="emoji">🌍</span> Total sträcka: ~20,424 km<br>
+                                                <span class="emoji">⏳</span> Total transittid: ~80 dagar (från Kina till Sverige)
+                                            </div>
+
+                                            <div style="margin-top: 30px; font-size: 0.9em; color: #777; text-align: center;">
+                                                * Avstånd baserade på PDF-data och geografisk uppskattning
+                                            </div>
+
+                                            <br />
+                                            <br />
+
+                                            <h1>📦 Transportväg 2 för Audrey Ski Jacket (Art No: JACKET 1 2460)</h1>
+
+                                            <p><strong>Steg-för-steg med avstånd:</strong></p>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🏭</span> Produktion i Pocheon, Gwangju, Bucheon, Korea: ~0 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Incheon: ~80 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Yingkou, Kina: ~850 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dashiqiao (sammansättning): ~60 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dalian (hamn): ~250 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Göteborg, Sverige: ~18,214 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Borås: ~70 km
+
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="total">
+                                                <span class="emoji">🌍</span> Total sträcka: ~19,524 km<br>
+                                                <span class="emoji">⏳</span> Total transittid: ~80 dagar (från Kina till Sverige)
+                                            </div>
+
+                                            <div style="margin-top: 30px; font-size: 0.9em; color: #777; text-align: center;">
+                                                * Avstånd baserade på PDF-data och geografisk uppskattning
+                                            </div>
+
+                                            <br />
+                                            <br />
+                                            <h1>📦 Transportväg 3 för Audrey Ski Jacket (Art No: JACKET 1 2460)</h1>
+
+                                            <p><strong>Steg-för-steg med avstånd:</strong></p>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🏭</span> Produktion i Hong kong: ~0 km
+                                            </div>
+
+
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Incheon, Korea: ~2,200 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Yingkou, Kina: ~ 850 km
+                                            </div>
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dashiqiao (sammansättning): ~60 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dalian (hamn): ~250 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Göteborg, Sverige: ~18,214 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Borås: ~70 km
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="total">
+                                                <span class="emoji">🌍</span> Total sträcka: ~21,644 km<br>
+                                                <span class="emoji">⏳</span> Total transittid: ~80 dagar (från Kina till Sverige)
+                                            </div>
+
+                                            <div style="margin-top: 30px; font-size: 0.9em; color: #777; text-align: center;">
+                                                * Avstånd baserade på PDF-data och geografisk uppskattning
+                                            </div>
+
+                                            <br />
+                                            <br />
+                                            <h1>📦 Transportväg 4 för Audrey Ski Jacket (Art No: JACKET 1 2460)</h1>
+
+                                            <p><strong>Steg-för-steg med avstånd:</strong></p>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🏭</span> Produktion i Montreal, Kanada: ~0 km
+                                            </div>
+
+
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Busan, Sydkorea: ~10,500 km
+                                            </div>
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Incheon: ~4000 km
+                                            </div>
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Yingkou, Kina: ~ 850 km
+                                            </div>
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dashiqiao (sammansättning): ~60 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Dalian (hamn): ~250 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚢</span> Båt till Göteborg, Sverige: ~18,214 km
+                                            </div>
+
+                                            <div class="transport-step">
+                                                <span class="emoji">🚚</span> Lastbil till Borås: ~70 km
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="total">
+                                                <span class="emoji">🌍</span> Total sträcka: ~33,944 km<br>
+                                                <span class="emoji">⏳</span> Total transittid: ~80 dagar (från Kina till Sverige)
+                                            </div>
+
+                                            <div style="margin-top: 30px; font-size: 0.9em; color: #777; text-align: center;">
+                                                * Avstånd baserade på PDF-data och geografisk uppskattning
+                                            </div>
+
+                                        </body>
+</html>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Certifications Tab -->
+        <div id="certifieringar" class="tab-content">
+            <h3>Certifieringar & Hållbarhet</h3>
+
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <h4 class="cert-title">DWR (C0)</h4>
+                    <p class="cert-desc">Fluorkarbonfri vattenavvisande behandling</p>
+                </div>
+                <div class="cert-card">
+                    <h4 class="cert-title">ECO-M3F</h4>
+                    <p class="cert-desc">76% ECO-M3F fiber i isoleringsmaterial</p>
+                </div>
+                <div class="cert-card">
+                    <h4 class="cert-title">SORONA</h4>
+                    <p class="cert-desc">Biobaserad fiber från DuPont</p>
+                </div>
+                <div class="cert-card">
+                    <h4 class="cert-title">Återvunnen polyester</h4>
+                    <p class="cert-desc">30% återvunnen polyester i isolering</p>
+                </div>
+            </div>
+
+            <div class="info-box info-box-yellow">
+                <p class="info-title">Vad betyder certifieringarna?</p>
+                <ul>
+                    <li><strong>DWR (C0)</strong> - Vattenavvisande behandling utan perfluorerade kemikalier</li>
+                    <li><strong>ECO-M3F</strong> - Miljövänligare fibermaterial i isolering</li>
+                    <li><strong>SORONA</strong> - Delvis biobaserad textilfiber från DuPont, tillverkad av förnybara resurser</li>
+                    <li><strong>Återvunnen polyester</strong> - Minskar förbrukningen av ny råolja och energiåtgång</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Material Tab -->
+        <div id="material" class="tab-content">
+            <h3>Materialsammansättning</h3>
+
+            <div class="material-charts">
+                <div class="pie-container">
+                    <canvas id="outerMaterialChart"></canvas>
+                    <div class="chart-title">Yttertyg</div>
+                </div>
+
+                <div class="pie-container">
+                    <canvas id="insulationChart"></canvas>
+                    <div class="chart-title">Isolering</div>
+                </div>
+            </div>
+
+            <div class="info-box info-box-purple">
+                <p class="info-title">Material information:</p>
+                <ul>
+                    <li><strong>Yttertyg:</strong> FY19030-16 (88% NYLON, 12% SPANDEX) 70D ELASTIC NYLON PLAIN</li>
+                    <li>
+                        <strong>Fodermaterial:</strong> Olika polyestermaterial inklusive:
+                        <ul>
+                            <li>DMF002-2SDC - 100% POLYESTER DOPE DYED POLY MICRO FIBER</li>
+                            <li>TY-741 - BRUSHED TRICOT (100% POLYESTER)</li>
+                            <li>290T DOWN BAG - POLY DOWN BAG (100% POLYESTER)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Isolering:</strong> SPF4 PADDING 120G (30% ÅTERVUNNEN POLYESTER, 70% POLYESTER)</li>
+                    <li><strong>Speciell isolering:</strong> STS-M3F med SORONA fiber (biobaserad)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Care Instructions Tab -->
+        <div id="tvätt" class="tab-content">
+            <h3>Tvättanvisningar</h3>
+
+            <div class="care-instructions">
+                <div class="care-item">
+                    <div class="care-icon">🧼</div>
+                    <div class="care-text">Maskintvätt 30°C</div>
+                </div>
+                <div class="care-item">
+                    <div class="care-icon">⚠️</div>
+                    <div class="care-text">Använd inte blekmedel</div>
+                </div>
+                <div class="care-item">
+                    <div class="care-icon">🚫</div>
+                    <div class="care-text">Torktumla ej</div>
+                </div>
+                <div class="care-item">
+                    <div class="care-icon">🧪</div>
+                    <div class="care-text">Kemtvätta ej</div>
+                </div>
+                <div class="care-item">
+                    <div class="care-icon">🔥</div>
+                    <div class="care-text">Stryk ej</div>
+                </div>
+            </div>
+
+            <div class="care-note">
+                <p>
+                    OBS: Exakta tvättanvisningar finns på plaggänketten (8848-003 CARE LABEL).
+                    Denna information baseras på standardanvisningar för liknande skidjackor med
+                    vattenavvisande behandling.
+                </p>
+
+                <div class="care-tip">
+                    <p class="care-tip-title">För att bibehålla vattenavvisande egenskaper:</p>
+                    <p class="care-tip-text">Använd flytande tvättmedel utan sköljmedel och återaktivera DWR-behandlingen genom försiktig värme efter tvätt.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+        <script>
+            // Data
+            const materialData = [
+                { name: 'Nylon (yttertyg)', value: 88 },
+                { name: 'Spandex (yttertyg)', value: 12 },
+                { name: 'Polyester (foder)', value: 100 },
+                { name: 'Återvunnen polyester', value: 30 },
+                { name: 'Konventionell polyester', value: 70 }
+            ];
+
+            const transportData = [
+                { name: 'Suzhou to Yingkou', distance: 1658, mode: 'Truck' },
+                { name: 'Yingkou to Dashiqiao', distance: 50, mode: 'Truck' },
+                { name: 'Dashiqiao to Dalian', distance: 250, mode: 'Truck' },
+                { name: 'Dalian to Gothenburg', distance: 18214, mode: 'Vessel' }, // Approximate sea distance
+                { name: 'Gothenburg to Borås', distance: 70, mode: 'Truck' }
+            ];
+
+            const environmentalData = [
+                { name: 'CO2 (kg/plagg)', value: 0.13 },
+                { name: 'Vikt material (kg)', value: 1.05 }
+            ];
+
+            const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
+
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and tab contents
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding tab content
+                    button.classList.add('active');
+                    document.getElementById(button.getAttribute('data-tab')).classList.add('active');
+                });
+            });
+
+            // Initialize charts when DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Environmental impact chart
+                const envCtx = document.getElementById('environmentalChart').getContext('2d');
+                const envChart = new Chart(envCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: environmentalData.map(item => item.name),
+                        datasets: [{
+                            label: 'Värde',
+                            data: environmentalData.map(item => item.value),
+                            backgroundColor: '#8884d8',
+                            borderColor: '#7771d1',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 14 // Increased font size
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                bodyFont: {
+                                    size: 14 // Increased tooltip font size
+                                },
+                                titleFont: {
+                                    size: 16 // Increased tooltip title font size
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    font: {
+                                        size: 14 // Increased axis tick font size
+                                    }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 14 // Increased axis tick font size
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                //Transport chart
+                const transportCtx = document.getElementById('transportChart').getContext('2d');
+                const transportChart = new Chart(transportCtx, {
+
+                    type: 'bar',
+                    data: {
+                        labels: transportData.map(item => item.name),
+                        datasets: [{
+                            label: 'Transport Distance (km)',
+                            data: transportData.map(item => item.distance),
+                            backgroundColor: transportData.map(item =>
+                                item.mode === 'Truck' ? '#4e73df' : '#1cc88a'
+                            ),
+                            borderColor: transportData.map(item =>
+                                item.mode === 'Truck' ? '#2e59d9' : '#17a673'
+                            ),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `${context.parsed.y.toLocaleString()} km`; // Formatera tooltip med tusentalsseparator
+                                    },
+                                    afterLabel: function (context) {
+                                        const index = context.dataIndex;
+                                        return `Transport Mode: ${transportData[index].mode}`;
+                                    }
+                                },
+                                bodyFont: { size: 14 },
+                                titleFont: { size: 16 }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: 'Distance (km, log scale)',
+                                    font: { size: 14 }
+                                },
+                                ticks: {
+                                    font: { size: 12 },
+                                    callback: function (value) {
+                                        // Visa endast "rena" log-värden för bättre läsbarhet
+                                        const logValues = [100, 1000, 10000, 100000];
+                                        return logValues.includes(value) ? value.toLocaleString() : '';
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)' // Ljusare grid-linjer
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'OBS bara transport väg för majoriten av matrialen',
+                                    font: { size: 14 }
+                                },
+                                ticks: {
+                                    font: { size: 12 }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 2000
+                        }
+
+                    }
+                });
+
+                // Outer material pie chart
+                const outerMaterialCtx = document.getElementById('outerMaterialChart').getContext('2d');
+                const outerMaterialChart = new Chart(outerMaterialCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: materialData.slice(0, 2).map(item => item.name),
+                        datasets: [{
+                            data: materialData.slice(0, 2).map(item => item.value),
+                            backgroundColor: [COLORS[0], COLORS[1]],
+                            borderColor: 'white',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 14 // Increased font size
+                                    },
+                                    padding: 20 // Increased padding
+                                }
+                            },
+                            tooltip: {
+                                bodyFont: {
+                                    size: 14 // Increased tooltip font size
+                                },
+                                titleFont: {
+                                    size: 16 // Increased tooltip title font size
+                                },
+                                callbacks: {
+                                    label: function (context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // Insulation material pie chart
+                const insulationCtx = document.getElementById('insulationChart').getContext('2d');
+                const insulationChart = new Chart(insulationCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: materialData.slice(3, 5).map(item => item.name),
+                        datasets: [{
+                            data: materialData.slice(3, 5).map(item => item.value),
+                            backgroundColor: [COLORS[3], COLORS[4]],
+                            borderColor: 'white',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 14 // Increased font size
+                                    },
+                                    padding: 20 // Increased padding
+                                }
+                            },
+                            tooltip: {
+                                bodyFont: {
+                                    size: 14 // Increased tooltip font size
+                                },
+                                titleFont: {
+                                    size: 16 // Increased tooltip title font size
+                                },
+                                callbacks: {
+                                    label: function (context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        return `${label}: ${value}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+</body>
+
+    </section>
+
+<script>
+    // Interactive elements
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function () {
+            // Update color selection
+            document.querySelectorAll('.color-option').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+
+            // Update the product image
+            const newImageSrc = this.getAttribute('data-image');
+            const colorName = this.getAttribute('data-color');
+            const productImage = document.getElementById('product-image');
+
+            productImage.src = newImageSrc;
+            productImage.alt = `Audrey W Ski Jacket - ${colorName}`;
+
+            // Update store link based on color (optional)
+            updateStoreLink(colorName);
+        });
+    });
+
+    document.querySelectorAll('.size-option').forEach(option => {
+        option.addEventListener('click', function () {
+            document.querySelectorAll('.size-option').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    function updateStoreLink(colorName) {
+        // This is a placeholder function that could be expanded to update the store link based on color
+        const storeLink = document.getElementById('store-link');
+        const colorSlug = colorName.toLowerCase().replace(' ', '-');
+        storeLink.href = `https://www.8848altitude.com/sv-SE/dam/audrey-w-ski-jacket-${colorSlug}-246008034`;
+    }
+
+    function hideProductDetail() {
+        // This would be implemented based on your site's navigation structure
+        console.log('Back to products clicked');
+        // window.location.href = 'products.html'; // Example redirect
+        return false;
+    }
+
+    // Initialize the store link for the default selected color
+    window.addEventListener('DOMContentLoaded', () => {
+        const selectedColor = document.querySelector('.color-option.selected').getAttribute('data-color');
+        updateStoreLink(selectedColor);
+    });
+</script>
+
+
+<!-- Jacket 2 Detail Page -->
+<section class="product-detail-page" id="jacket2-detail">
+    <div class="container">
+        <a href="#" class="back-btn" onclick="hideProductDetail()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Products</span>
+        </a>
+
+        <div class="product-detail-container">
+            <div class="product-info-column">
+                <h2 class="product-title">Saga Jr SKI JACKET</h2>
+                <p class="product-description">
+                    Varm och lätt puffer med högsta komfort och alla tekniska detaljer för skidåkning och vinteraktivitet.
+                </p>
+                <div class="product-attribute">
+                    <h3>Colors:</h3>
+                    <div class="color-options">
+                        <div class="color-option selected" data-color="Black" data-image="https://www.8848altitude.com/storage/FFC1141D68F9F456F9B75B8706C3D5644159A710BFF96299AEF39F7EB8ABBC16/3a06ef5569bb4b3da9606f4beb399b4c/jpg/media/1c4de389662b48fb9dd3dd2025ebb3d4/5139S9_7.jpg" style="background-color: #000000;" title="Black"></div>
+                        <div class="color-option" data-color="Beige" data-image="https://www.8848altitude.com/storage/DF6A5BB568548663DAB8430C76DA01B24901013B6B186B5F6F204279C32A792A/9e69011302764a28a7293970bad1b57a/jpg/media/45e97f4e0622432882b55aaa764d7e1a/513917_7.jpg" style="background-color: #e4d5b7; " title="Beige"></div>
+                        <div class="color-option" data-color="Dk Burgundy" data-image="https://www.8848altitude.com/storage/0AB2CDD18DAA5971CD540B611AC7A8D7B23EC891C6EBCCC9020E51DD57500A59/e4d3b3b3729c4aee8d03b7972736fd76/jpg/media/f8fc56b6a79d4787939aa14e4016d512/513967_6.jpg" style="background-color: #800020;" title="Dk Burgundy"></div>
+                    </div>
+                </div>
+                <div class="product-attribute">
+                    <h3>Sizes:</h3>
+                    <div class="size-options">
+                        <div class="size-option">140</div>
+                        <div class="size-option">150</div>
+                        <div class="size-option selected">160</div>
+                        <div class="size-option">170</div>
+                    </div>
+                </div>
+                <div class="product-attribute">
+                    <h3>Prize</h3>
+                    <p class="product-price">2 700 SEK</p>
+                </div>
+                <a href="https://www.8848altitude.com/sv-SE/barn/skidklader/skidjackor/saga-jr-ski-jacket-black-glossy-5139s9140" class="store-btn" id="jacket2-store-link">
+                    <i class="fas fa-store"></i> Show in Store
+                </a>
+            </div>
+            <div class="product-image-column">
+                <div class="product-detail-image">
+                    <img id="jacket2-product-image" src="https://www.8848altitude.com/storage/FFC1141D68F9F456F9B75B8706C3D5644159A710BFF96299AEF39F7EB8ABBC16/3a06ef5569bb4b3da9606f4beb399b4c/jpg/media/1c4de389662b48fb9dd3dd2025ebb3d4/5139S9_7.jpg"
+                         alt="Saga Jr Ski jacket - Black">
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</section>
+
+<script>
+    // Interactive elements for Jacket 2
+    document.querySelectorAll('#jacket2-detail .color-option').forEach(option => {
+        option.addEventListener('click', function () {
+            // Update color selection
+            document.querySelectorAll('#jacket2-detail .color-option').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+
+            // Update the product image
+            const newImageSrc = this.getAttribute('data-image');
+            const colorName = this.getAttribute('data-color');
+            const productImage = document.getElementById('jacket2-product-image');
+
+            productImage.src = newImageSrc;
+            productImage.alt = `Saga Jr Ski jacket - ${colorName}`;
+
+            // Update store link based on color
+            updateJacket2StoreLink(colorName);
+        });
+    });
+
+    document.querySelectorAll('#jacket2-detail .size-option').forEach(option => {
+        option.addEventListener('click', function () {
+            document.querySelectorAll('#jacket2-detail .size-option').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+
+    function updateJacket2StoreLink(colorName) {
+        // Update the store link based on color
+        const storeLink = document.getElementById('jacket2-store-link');
+        const colorSlug = colorName.toLowerCase().replace(' ', '-');
+        storeLink.href = `https://www.8848altitude.com/sv-SE/barn/skidklader/skidjackor/saga-jr-ski-jacket-black-glossy-5139s9140${colorSlug}-glossy-5139s9140`;
+    }
+
+    function hideProductDetail() {
+        // This would be implemented based on your site's navigation structure
+        console.log('Back to products clicked');
+        // window.location.href = 'products.html'; // Example redirect
+        return false;
+    }
+
+    // Initialize the store link for the default selected color
+    window.addEventListener('DOMContentLoaded', () => {
+        const selectedColor = document.querySelector('#jacket2-detail .color-option.selected').getAttribute('data-color');
+        updateJacket2StoreLink(selectedColor);
+    });
+</script>
+</body>
+</html>
+
+<script>
+    function showProductDetail(productId) {
+        // Dölj huvudinnehållet
+        document.querySelector('.main-content').classList.add('hidden');
+
+        // Visa produktdetaljer
+        document.getElementById(productId + '-detail').style.display = 'block';
+
+        // Scrolla till toppen
+        window.scrollTo(0, 0);
+
+        // Uppdatera URL utan att ladda om sidan
+        history.pushState({ product: productId }, '', `#${productId}`);
+    }
+
+    function hideProductDetail() {
+        // Visa huvudinnehållet
+        document.querySelector('.main-content').classList.remove('hidden');
+
+        // Dölj alla produktdetaljsidor
+        document.querySelectorAll('.product-detail-page').forEach(page => {
+            page.style.display = 'none';
+        });
+
+        // Återställ URL
+        if (window.location.hash) {
+            history.pushState(null, '', window.location.pathname);
+        }
+    }
+
+    // Hantera tillbakaknapp i webbläsaren
+    window.addEventListener('popstate', function (event) {
+        if (event.state && event.state.product) {
+            showProductDetail(event.state.product);
+        } else {
+            hideProductDetail();
+        }
+    });
+
+    // Kontrollera vid laddning om vi ska visa en produkt direkt
+    window.addEventListener('DOMContentLoaded', function () {
+        const hash = window.location.hash.substring(1);
+        if (hash === 'jacket1' || hash === 'jacket2') {
+            showProductDetail(hash);
+        }
+    });
+
+    // Kontaktformulär som tidigare
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+    });
+</script>
+    </body>
+</html>
+
+
+
+
